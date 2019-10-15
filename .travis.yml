@@ -2,8 +2,8 @@ language: java
 sudo: false
 
 jdk:
-  - openjdk7
-  - oraclejdk8
+  # - openjdk7
+  # - oraclejdk8
   - oraclejdk9
 
 before_cache:
