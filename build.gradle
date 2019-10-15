@@ -47,7 +47,7 @@ dependencies {
     compile jacksonDatabind + '2.11.1'
 
     testCompile junit
-    testCompile mongoDbJavaDriver
+    compile mongoDbJavaDriver
     
     integrationTestBase junit
     integrationTestBase mongoDbJavaDriver
