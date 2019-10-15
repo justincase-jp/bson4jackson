@@ -7,10 +7,8 @@ import de.undercouch.bson4jackson.types.JavaScript;
 import de.undercouch.bson4jackson.types.ObjectId;
 import de.undercouch.bson4jackson.types.Symbol;
 import de.undercouch.bson4jackson.types.Timestamp;
-import org.bson.BSONEncoder;
-import org.bson.BSONObject;
-import org.bson.BasicBSONEncoder;
-import org.bson.BasicBSONObject;
+import org.bson.*;
+import org.bson.types.Binary;
 import org.bson.types.Code;
 import org.bson.types.CodeWScope;
 import org.junit.Test;
@@ -172,7 +170,8 @@ public class BsonDeserializersTest {
     @Test
     public void uuid() throws Exception {
         UUID uuid = UUID.randomUUID();
-        TC.U obj = generateAndParse(uuid, TC.U.class);
+        BsonBinary uuidBinary = new BsonBinary(uuid, UuidRepresentation.STANDARD);
+        TC.U obj = generateAndParse(new Binary(uuidBinary.getType(), uuidBinary.getData()), TC.U.class);
         assertEquals(uuid, obj.obj);
     }
 }
