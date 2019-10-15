@@ -39,10 +39,9 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import org.bson.BSONDecoder;
-import org.bson.BSONObject;
-import org.bson.BasicBSONDecoder;
+import org.bson.*;
 import org.bson.types.BSONTimestamp;
+import org.bson.types.Binary;
 import org.bson.types.Code;
 import org.bson.types.CodeWScope;
 import org.junit.Test;
@@ -330,8 +329,9 @@ public class BsonGeneratorTest {
 
 		assertEquals(5, obj.get("Int32"));
 		assertNotNull(obj.get("Uuid"));
-		assertEquals(UUID.class, obj.get("Uuid").getClass());
-		assertEquals(uuid, obj.get("Uuid"));
+		assertEquals(Binary.class, obj.get("Uuid").getClass());
+		BsonBinary uuidBinary = new BsonBinary(uuid, UuidRepresentation.STANDARD);
+		assertEquals(new Binary(uuidBinary.getType(), uuidBinary.getData()), obj.get("Uuid"));
 	}
 
 	/**

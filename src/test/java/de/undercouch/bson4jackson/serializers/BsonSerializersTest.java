@@ -26,9 +26,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import org.bson.BSONDecoder;
-import org.bson.BSONObject;
-import org.bson.BasicBSONDecoder;
+import org.bson.*;
+import org.bson.types.Binary;
 import org.bson.types.Code;
 import org.bson.types.CodeWScope;
 import org.junit.Test;
@@ -167,6 +166,7 @@ public class BsonSerializersTest {
 	public void uuid() throws Exception {
 		UUID uuid = UUID.randomUUID();
 		Object obj = generateAndParse(uuid);
-		assertEquals(uuid, obj);
+		BsonBinary uuidBinary = new BsonBinary(uuid, UuidRepresentation.STANDARD);
+		assertEquals(new Binary(uuidBinary.getType(), uuidBinary.getData()), obj);
 	}
 }

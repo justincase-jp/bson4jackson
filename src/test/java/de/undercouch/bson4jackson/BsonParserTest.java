@@ -36,10 +36,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
-import org.bson.BSONEncoder;
-import org.bson.BSONObject;
-import org.bson.BasicBSONEncoder;
-import org.bson.BasicBSONObject;
+import org.bson.*;
 import org.bson.types.BSONTimestamp;
 import org.bson.types.Binary;
 import org.bson.types.Code;
@@ -403,7 +400,8 @@ public class BsonParserTest {
 		BSONObject o = new BasicBSONObject();
 		o.put("b1", b);
 		o.put("b2", new Binary(BsonConstants.SUBTYPE_BINARY, b));
-		o.put("uuid", new UUID(1L, 2L));
+		BsonBinary uuidBinary = new BsonBinary(new UUID(1L, 2L), UuidRepresentation.STANDARD);
+		o.put("uuid", new Binary(uuidBinary.getType(), uuidBinary.getData()));
 		
 		Map<?, ?> data = parseBsonObject(o);
 		assertEquals(3, data.size());
