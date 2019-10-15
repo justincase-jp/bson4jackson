@@ -20,6 +20,8 @@ import de.undercouch.bson4jackson.types.JavaScript;
 import de.undercouch.bson4jackson.types.ObjectId;
 import de.undercouch.bson4jackson.types.Symbol;
 import de.undercouch.bson4jackson.types.Timestamp;
+import org.bson.BsonBinary;
+import org.bson.BsonBinarySubType;
 
 import java.io.BufferedInputStream;
 import java.io.EOFException;
@@ -440,9 +442,9 @@ public class BsonParser extends ParserBase {
                 break;
 
             case BsonConstants.SUBTYPE_UUID:
-                long l1 = _in.readLong();
-                long l2 = _in.readLong();
-                ctx.value = new UUID(l1, l2);
+                byte[] buf3 = new byte[16];
+                _in.readFully(buf3);
+                ctx.value = new BsonBinary(BsonBinarySubType.UUID_STANDARD, buf3).asUuid();
                 break;
 
             default:
