@@ -17,7 +17,12 @@ repositories {
 }
 
 tasks.withType(JavaCompile) { 
-    options.compilerArgs << "-Xlint" 
+    options.compilerArgs << "-Xlint"
+
+    // For JitPack
+    if (JavaVersion.current() > JavaVersion.VERSION_1_8) {
+        options.compilerArgs << "--release" << "7"
+    }
 } 
 
 configurations {
