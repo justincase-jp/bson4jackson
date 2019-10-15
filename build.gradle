@@ -35,7 +35,7 @@ String jacksonCore = 'com.fasterxml.jackson.core:jackson-core:'
 String jacksonAnnotations = 'com.fasterxml.jackson.core:jackson-annotations:'
 String jacksonDatabind = 'com.fasterxml.jackson.core:jackson-databind:'
 String junit = 'junit:junit:4.12'
-String mongoDbJavaDriver = 'org.mongodb:mongo-java-driver:3.4.0'
+String mongoDbJavaDriver = 'org.mongodb:mongo-java-driver:3.11.0'
 
 dependencies {
     compile jacksonCore + '2.9.3'
@@ -43,7 +43,7 @@ dependencies {
     compile jacksonDatabind + '2.9.3'
 
     testCompile junit
-    testCompile mongoDbJavaDriver
+    compile mongoDbJavaDriver
     
     integrationTestBase junit
     integrationTestBase mongoDbJavaDriver
