@@ -1,5 +1,7 @@
+plugins {
+    id 'biz.aQute.bnd.builder' version '5.1.2'
+}
 apply plugin: 'maven'
-apply plugin: 'osgi'
 apply plugin: 'signing'
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -97,13 +99,14 @@ dependencies {
 
 jar {
     // define OSGi bundle manifest
-    manifest {
-        name = 'bson4jackson'
-        symbolicName = "de.undercouch.bson4jackson"
-        vendor = 'Michel Kraemer'
-        instruction 'Import-Package', '*'
-        instruction 'Export-Package', "de.undercouch.*;version=${version}"
-    }
+    // https://git.io/JUYnM
+    bnd(
+            'Bundle-Name': 'bson4jackson',
+            'Bundle-SymbolicName': 'de.undercouch.bson4jackson',
+            'Bundle-Vendor': 'Michel Kraemer',
+            'Import-Package': '*',
+            'Export-Package': "de.undercouch.*;version=$version"
+    )
     
     // include license into jar
     from 'LICENSE.txt'
